@@ -34,12 +34,27 @@ struct RecipesListView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-
+                    
                 }
             }
             .sheet(isPresented: $isPresenting) {
                 NavigationView {
                     ModifyRecipeView(recipe: $newRecipe)
+                        .toolbar(content: {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Dismiss") {
+                                    isPresenting = false
+                                }
+                            }
+                            ToolbarItem(placement: .confirmationAction) {
+                                if newRecipe.isValid {
+                                    Button("Add") {
+                                        recipeData.add(recipe: newRecipe)
+                                        isPresenting = false
+                                    }
+                                }
+                            }
+                        })
                         .navigationTitle("Add a new Recipe")
                 }
             }
