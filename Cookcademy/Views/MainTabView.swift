@@ -18,6 +18,8 @@ struct MainTabView: View {
                 RecipesListView(viewStyle: .favorites)
             }
             .tabItem { Label("Favorites", systemImage: "heart.fill")}
+            SettingsView()
+                .tabItem { Label("Settings", systemImage: "gear") }
         }
         .environmentObject(recipeData)
     }

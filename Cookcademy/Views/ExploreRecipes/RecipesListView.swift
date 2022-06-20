@@ -14,8 +14,8 @@ struct RecipesListView: View {
     @State private var isPresenting = false
     @State private var newRecipe = Recipe()
     
-    private let listBackGroundColor = AppColor.background
-    private let listTextColor = AppColor.foreground
+    @AppStorage("listBackgroundColor") private var listBackgroundColor = AppColor.background
+    @AppStorage("listTextColor") private var listTextColor = AppColor.foreground
     
     var body: some View {
         NavigationView {
@@ -23,10 +23,9 @@ struct RecipesListView: View {
                 ForEach(recipes) { recipe in
                     NavigationLink(recipe.mainInformation.name, destination: RecipeDetailView(recipe: binding(for: recipe)))
                 }
-                .listRowBackground(listBackGroundColor)
+                .listRowBackground(listBackgroundColor)
                 .foregroundColor(listTextColor)
             }
-            .navigationTitle(navigationTitle)
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -60,7 +59,7 @@ struct RecipesListView: View {
                 }
             }
         }
-        
+        .navigationTitle(navigationTitle)
     }
 }
 
